@@ -50,7 +50,7 @@
  
 	conf:defaultRawDataQueries	"""select distinct * { {<${IRI}> ?p ?o} 
 								UNION 
-								{<${IRI}> ?p1 ?s . ?s ?p ?o FILTER(isBlank(?s))}
+								{<${IRI}> ?p1 ?s . ?s ?p ?o FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'.well-known')))}
 								}	LIMIT 10000""" ;
 
 ## skip domains that are probably offline
