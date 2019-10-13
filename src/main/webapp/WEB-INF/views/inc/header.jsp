@@ -17,6 +17,8 @@
 <!-- managing maps  -->
 <link rel="stylesheet" href="${conf.getStaticResourceURL()}vendor/leaflet/leaflet.css" />
 <script src="${conf.getStaticResourceURL()}vendor/leaflet/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.5/wicket.min.js" integrity="sha256-G9R/Zo79niGI6NHqBvRelhjBRCY4N5rtR73N4WCIbkQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.5/wicket-leaflet.min.js" integrity="sha256-vI4mtnrisBvi+wZUx+emAuyJQmBI5AoVcGL/1f8Dt3s=" crossorigin="anonymous"></script>
 <link rel="canonical" href="${results.getMainIRI()}" >
 <script src="${conf.getStaticResourceURL()}vendor/masonry.pkgd.min.js"></script>
 <script src="${conf.getStaticResourceURL()}vendor/modernizr-custom.min.js"></script>
@@ -48,7 +50,7 @@ div#loadPanel span.ok img {
 	var isRetina = window.devicePixelRatio > 1;
 	var isChrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase())
 </script>
-<c:set var="hasMap" scope="page" value='${results.getLatitude()!=null && !results.getLatitude().equals("") && results.getLongitude()!=null&&!results.getLongitude().equals("")}'></c:set>
+<c:set var="hasMap" scope="page" value='${(results.getLatitude()!=null && !results.getLatitude().equals("") && results.getLongitude()!=null && !results.getLongitude().equals("")) || (results.getGeometry()!=null && !results.getGeometry().equals(""))}'></c:set>
 <c:set var="hasLod" scope="page" value="${results.getLinking()!=null && results.getLinking().size()>0}"></c:set>
 <c:set var="hasImages" scope="page" value="${results.getImages()!=null && results.getImages().size()>0}"></c:set>
 <c:set var="hasVideos" scope="page" value="${results.getVideos()!=null && results.getVideos().size()>0}"></c:set>
