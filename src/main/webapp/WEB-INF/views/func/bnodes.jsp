@@ -7,7 +7,11 @@
 	<div class="${c2name} value">
 		<c:forEach items='${data.get(aprop)}' var="ela">
 			<div class="toOneLine">
-				<a href="#${ela.getValue()}" id="t_${ela.getValue()}"> _:${ela.getValue()}</a>
+				<c:choose>
+					<c:when test='${ela.getValue().contains(".well-known")}'><a href="#${ela.getValue()}" id="t_${ela.getValue()}"> ${ela.getValue()}</a></c:when>
+					<c:otherwise><a href="#${ela.getValue()}" id="t_${ela.getValue()}"> _:${ela.getValue()}</a></c:otherwise>
+				</c:choose>
+				
 			</div>
 		</c:forEach>
 	</div>
