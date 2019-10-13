@@ -107,7 +107,10 @@ public class SPARQLEndPoint {
 					rb.setProperty(p);
 					if (qs.get("o") != null) {
 						Node object = qs.get("o").asNode();
-						if (object.isURI()) {
+						if (object.isBlank() || object.toString().contains(".well-known")) {
+							rb.setType("bnode");
+							rb.setValue(object.toString(false));
+						} else if (object.isURI()) {
 							rb.setType("iri");
 							rb.setValue(object.toString(false));
 						} else if (object.isLiteral()) {
@@ -116,9 +119,6 @@ public class SPARQLEndPoint {
 							rb.setNsDataType(Misc.toNsResource(object.getLiteralDatatypeURI(), conf));
 							rb.setLang(object.getLiteralLanguage());
 							rb.setValue(object.getLiteralLexicalForm());
-						} else if (object.isBlank()) {
-							rb.setType("bnode");
-							rb.setValue(object.toString(false));
 						}
 					} else {
 						rb.setType("literal");
@@ -194,7 +194,10 @@ public class SPARQLEndPoint {
 						rb.setProperty(p);
 						if (qs.get("o") != null) {
 							Node object = qs.get("o").asNode();
-							if (object.isURI()) {
+							if (object.isBlank() || object.toString().contains(".well-known")) {
+								rb.setType("bnode");
+								rb.setValue(object.toString(false));
+							} else if (object.isURI()) {
 								rb.setType("iri");
 								rb.setValue(object.toString(false));
 							} else if (object.isLiteral()) {
@@ -203,9 +206,6 @@ public class SPARQLEndPoint {
 								rb.setNsDataType(Misc.toNsResource(object.getLiteralDatatypeURI(), conf));
 								rb.setLang(object.getLiteralLanguage());
 								rb.setValue(object.getLiteralLexicalForm());
-							} else if (object.isBlank()) {
-								rb.setType("bnode");
-								rb.setValue(object.toString(false));
 							}
 						} else {
 							rb.setType("literal");
