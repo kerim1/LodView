@@ -90,6 +90,8 @@ public class ResourceBuilder {
 				result.setLatitude(tripleBean.getValue());
 			} else if (conf.getLongitudeProperties().contains(tripleBean.getProperty().getNsProperty()) || conf.getLongitudeProperties().contains(tripleBean.getProperty().getProperty())) {
 				result.setLongitude(tripleBean.getValue());
+			} else if (conf.getGeometryProperties().contains(tripleBean.getProperty().getNsProperty()) || conf.getGeometryProperties().contains(tripleBean.getProperty().getProperty())) {
+				result.setGeometry(tripleBean.getValue());
 			} else if (conf.getImageProperties().contains(tripleBean.getProperty().getNsProperty()) || conf.getImageProperties().contains(tripleBean.getProperty().getProperty())) {
 				images.add(tripleBean.getValue());
 			}  else if (conf.getAudioProperties().contains(tripleBean.getProperty().getNsProperty()) || conf.getAudioProperties().contains(tripleBean.getProperty().getProperty())) {

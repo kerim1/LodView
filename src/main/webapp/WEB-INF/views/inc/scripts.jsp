@@ -151,18 +151,50 @@
 				})
 			});
 		},
-		drawMap : function drawMap(id, lat, lon, testoPopup, fullVersion) {
+		drawMap : function drawMap(id, lat, lon, geometry, testoPopup, fullVersion) {
 			var map = null;
 			if (fullVersion) {
-				var map = L.map(id).setView([ lat, lon ], 8);
-				L.marker([ lat, lon ]).addTo(map).bindPopup(testoPopup).openPopup();
+
+				if (geometry) {
+
+					map = L.map(id).setView([0, 0], 8);
+
+					var wkt = new Wkt.Wkt();
+					var polygon = wkt.read(geometry).toObject();
+					polygon.addTo(map);
+
+					map.fitBounds(polygon.getBounds(),{maxZoom:15});
+
+
+				} else {
+
+					map = L.map(id).setView([ lat, lon ], 8);
+					L.marker([ lat, lon ]).addTo(map).bindPopup(testoPopup).openPopup();
+
+				}
 			} else {
-				map = L.map(id, {
-					scrollWheelZoom : false,
-					zoomControl : false
-				}).setView([ lat, lon ], 3);
-				L.marker([ lat, lon ]).addTo(map);
-			}
+
+				if (geometry) {
+
+					map = L.map(id, {
+						scrollWheelZoom : false,
+						zoomControl : false
+					}).setView([0, 0], 8);
+
+					var wkt = new Wkt.Wkt();
+					var polygon = wkt.read(geometry).toObject();
+					polygon.addTo(map);
+
+					map.fitBounds(polygon.getBounds(),{maxZoom:15});
+
+				} else {
+
+					map = L.map(id, {
+						scrollWheelZoom : false,
+						zoomControl : false
+					}).setView([ lat, lon ], 3);
+					L.marker([ lat, lon ]).addTo(map);
+			}}
 			var osmurl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
 			if(document.location.href.indexOf('https://') == 0){
 				osmurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -175,7 +207,7 @@
 		mapInWidget : function(forceLoad) {
 			if ($('map').length > 0) {
 				var l = this;
-				l.drawMap("resourceMap", '${results.getLatitude()}', '${results.getLongitude()}');
+				l.drawMap("resourceMap", '${results.getLatitude()}', '${results.getLongitude()}', '${results.getWkt()}');
 				var a = $('#resourceMap');
 				var w = a.width();
 				var h = a.height();
@@ -183,7 +215,7 @@
 				var zoom = $('<span class="zoom sp" style="margin-top:' + (h / 2 - 15) + 'px;margin-left:' + (w / 2 - 15) + 'px;"></span>');
 				tools.append(zoom);
 				zoom.click(function() {
-					l.fullMap('${results.getLatitude()}', '${results.getLongitude()}', '${results.getTitle().replaceAll("\\n"," ").replaceAll("\\'","&acute;")}');
+					l.fullMap('${results.getLatitude()}', '${results.getLongitude()}', '${results.getWkt()}', '${results.getTitle().replaceAll("\\n"," ").replaceAll("\\'","&acute;")}');
 				});
 				a.prepend(tools);
 				a.hover(function() {
@@ -245,7 +277,7 @@
 				$(this).remove()
 			})
 		},
-		fullMap : function(lat, lon, testoPopup) {
+		fullMap : function(lat, lon, geometry, testoPopup) {
 			var l = this;
 			$('body').find('.hover').remove();
 			var layer = $('<div id="hover" class="hover"></div>');
@@ -260,7 +292,7 @@
 			$('body').append(map);
 			l.zoomHelper(map, $('#maphover'), true);
 			layer.fadeIn(300, function() {
-				l.drawMap("maphover", lat, lon, testoPopup, true);
+				l.drawMap("maphover", lat, lon, geometry, testoPopup, true);
 			});
 		},
 		fullImg : function(img,w,h) {
@@ -808,7 +840,7 @@
 						if (!data.find('root').attr('error')) {
 							linking.masonry().append(dest).masonry('appended', dest);
 							if (dest.find('map').length > 0) {
-								l.drawMap(dest.find('map').attr("id"), data.find('latitude').text(), data.find('longitude').text(), title);
+								l.drawMap(dest.find('map').attr("id"), data.find('latitude').text(), data.find('longitude').text(), data.find('geometry').text(), title);
 							}
 							data.find('link').each(function() {
 								var a = $(this).attr("href");

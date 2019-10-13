@@ -96,6 +96,8 @@ public class LodController {
 			result.append("<links tot=\"" + results.getLinking().size() + "\"/>");
 			result.append("<longitude><![CDATA[" + results.getLongitude() + "]]></longitude>");
 			result.append("<latitude><![CDATA[" + results.getLatitude() + "]]></latitude>");
+			result.append("<geometry><![CDATA[" + results.getGeometry() + "]]></geometry>");
+			result.append("<wkt><![CDATA[" + results.getWkt() + "]]></wkt>");
 
 			result.append("</root>");
 			return result.toString();

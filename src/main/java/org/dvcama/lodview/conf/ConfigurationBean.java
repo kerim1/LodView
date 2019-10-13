@@ -43,7 +43,7 @@ public class ConfigurationBean implements ServletContextAware, Cloneable {
 	private String authPassword = null;
 	private String defaultInverseBehaviour = "collapse";
 
-	private List<String> defaultQueries = null, defaultRawDataQueries = null, defaultInversesQueries = null, defaultInversesTest = null, defaultInversesCountQueries = null, typeProperties = null, audioProperties = null, imageProperties = null, videoProperties = null, linkingProperties = null, titleProperties = null, descriptionProperties = null, longitudeProperties = null, latitudeProperties = null;
+	private List<String> defaultQueries = null, defaultRawDataQueries = null, defaultInversesQueries = null, defaultInversesTest = null, defaultInversesCountQueries = null, typeProperties = null, audioProperties = null, imageProperties = null, videoProperties = null, linkingProperties = null, titleProperties = null, descriptionProperties = null, longitudeProperties = null, latitudeProperties = null, geometryProperties = null;
 	private List<String> colorPair = null, skipDomains = null, mainOntologiesPrefixes = null;
 	private Map<String, String> colorPairMatcher = null;
 
@@ -96,6 +96,7 @@ public class ConfigurationBean implements ServletContextAware, Cloneable {
 		linkingProperties = getMultiConfValue("linkingProperties");
 		longitudeProperties = getMultiConfValue("longitudeProperties");
 		latitudeProperties = getMultiConfValue("latitudeProperties");
+		geometryProperties = getMultiConfValue("geometryProperties");
 
 		defaultQueries = getMultiConfValue("defaultQueries");
 		defaultRawDataQueries = getMultiConfValue("defaultRawDataQueries");
@@ -251,6 +252,10 @@ public class ConfigurationBean implements ServletContextAware, Cloneable {
 		return latitudeProperties;
 	}
 
+	public List<String> getGeometryProperties() {
+		return geometryProperties;
+	}
+
 	public List<String> getDescriptionProperties() {
 		return descriptionProperties;
 	}
@@ -316,7 +321,7 @@ public class ConfigurationBean implements ServletContextAware, Cloneable {
 	@Override
 	public String toString() {
 		return "ConfigurationBean [confModel=" + confModel + ", context=" + context + ", confFile=" + confFile + ", endPointUrl=" + endPointUrl + ", IRInamespace=" + IRInamespace + ", contentEncoding=" + contentEncoding + ", staticResourceURL=" + staticResourceURL + ", preferredLanguage=" + preferredLanguage + ", publicUrlPrefix=" + publicUrlPrefix + ", authUsername=" + authUsername + ", authPassword=" + authPassword + ", defaultInverseBehaviour=" + defaultInverseBehaviour + ", defaultQueries=" + defaultQueries + ", defaultRawDataQueries=" + defaultRawDataQueries + ", defaultInversesQueries=" + defaultInversesQueries + ", defaultInversesTest=" + defaultInversesTest + ", defaultInversesCountQueries=" + defaultInversesCountQueries + ", typeProperties=" + typeProperties
-				+ ", imageProperties=" + imageProperties + ", audioProperties=" + audioProperties + ", videoProperties=" + videoProperties + ", linkingProperties=" + linkingProperties + ", titleProperties=" + titleProperties + ", descriptionProperties=" + descriptionProperties + ", longitudeProperties=" + longitudeProperties + ", latitudeProperties=" + latitudeProperties + ", colorPair=" + colorPair + ", skipDomains=" + skipDomains + ", rand=" + rand + "]";
+				+ ", imageProperties=" + imageProperties + ", audioProperties=" + audioProperties + ", videoProperties=" + videoProperties + ", linkingProperties=" + linkingProperties + ", titleProperties=" + titleProperties + ", descriptionProperties=" + descriptionProperties + ", longitudeProperties=" + longitudeProperties + ", latitudeProperties=" + latitudeProperties + ", geometryProperties=" + geometryProperties + ", colorPair=" + colorPair + ", skipDomains=" + skipDomains + ", rand=" + rand + "]";
 	}
 
 	public String getHomeUrl() {

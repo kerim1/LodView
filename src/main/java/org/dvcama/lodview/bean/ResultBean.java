@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ResultBean {
 
-	private String title, latitude = null, longitude = null, mainIRI = null;
+	private String title, latitude = null, longitude = null, geometry = null, wkt = null, mainIRI = null;
 	private PropertyBean descriptionProperty = null, typeProperty = null;
 	private List<String> images = null, linking = null, videos = null, audios = null;
 	private Map<String, LinkedHashMap<PropertyBean, List<TripleBean>>> literals = new HashMap<String, LinkedHashMap<PropertyBean, List<TripleBean>>>(), resources = new HashMap<String, LinkedHashMap<PropertyBean, List<TripleBean>>>(), bnodes = new HashMap<String, LinkedHashMap<PropertyBean, List<TripleBean>>>();
@@ -91,9 +91,10 @@ public class ResultBean {
 		return literals.get(IRI);
 	}
 
-	public  Map<String, LinkedHashMap<PropertyBean, List<TripleBean>>> getLiterals() {
+	public Map<String, LinkedHashMap<PropertyBean, List<TripleBean>>> getLiterals() {
 		return literals;
 	}
+
 	public LinkedHashMap<PropertyBean, List<TripleBean>> getBnodes(String IRI) {
 		return bnodes.get(IRI);
 	}
@@ -108,6 +109,29 @@ public class ResultBean {
 
 	public String getLatitude() {
 		return latitude;
+	}
+
+	public String getGeometry() {
+		return geometry;
+	}
+
+	public void setGeometry(String geometry) {
+		this.geometry = geometry;
+	}
+
+	public String getWkt() {
+
+		Map<PropertyBean, List<TripleBean>> literals = this.getLiterals(this.geometry);
+		if (literals == null || literals.size() == 0) {
+			return null;
+		}
+		for (PropertyBean key : literals.keySet()) {
+			for (TripleBean tripleBean : literals.get(key)) {
+
+				this.wkt = tripleBean.getValue().toString();
+			}
+		}
+		return wkt;
 	}
 
 	public List<String> getAudios() {
@@ -132,7 +156,10 @@ public class ResultBean {
 
 	@Override
 	public String toString() {
-		return "ResultBean [title=" + title + ", \ndescriptionProperty=" + descriptionProperty + ", \nlatitude=" + latitude + ", \nlongitude=" + longitude + ", \nimages=" + images + ", \nlinking=" + linking + ", \nliterals=" + literals + ", \nresources=" + resources + ", \nbnodes=" + bnodes + "]";
+		return "ResultBean [title=" + title + ", \ndescriptionProperty=" + descriptionProperty + ", \nlatitude="
+				+ latitude + ", \nlongitude=" + longitude + ", \ngeometry=" + geometry + ", \nwkt=" + wkt
+				+ ", \nimages=" + images + ", \nlinking=" + linking + ", \nliterals=" + literals + ", \nresources="
+				+ resources + ", \nbnodes=" + bnodes + "]";
 	}
 
 	public String getMainIRI() {
