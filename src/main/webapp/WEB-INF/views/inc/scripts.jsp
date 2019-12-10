@@ -160,11 +160,16 @@
 					map = L.map(id).setView([0, 0], 8);
 
 					var wkt = new Wkt.Wkt();
-					var polygon = wkt.read(geometry).toObject();
-					polygon.addTo(map);
+					var obj = wkt.read(geometry).toObject();
+					obj.addTo(map);
 
-					map.fitBounds(polygon.getBounds(),{maxZoom:15});
-
+					if (wkt.type === 'point') {
+						lat = obj.getLatLng()["lat"];
+						lon = obj.getLatLng()["lng"];
+						map.setView([ lat, lon ], 15);
+					} else {
+						map.fitBounds(obj.getBounds(),{maxZoom:15});
+					}
 
 				} else {
 
@@ -182,10 +187,16 @@
 					}).setView([0, 0], 8);
 
 					var wkt = new Wkt.Wkt();
-					var polygon = wkt.read(geometry).toObject();
-					polygon.addTo(map);
+					var obj = wkt.read(geometry).toObject();
+					obj.addTo(map);
 
-					map.fitBounds(polygon.getBounds(),{maxZoom:15});
+					if (wkt.type === 'point') {
+						lat = obj.getLatLng()["lat"];
+						lon = obj.getLatLng()["lng"];
+						map.setView([ lat, lon ], 15);
+					} else {
+						map.fitBounds(obj.getBounds(),{maxZoom:15});
+					}
 
 				} else {
 
