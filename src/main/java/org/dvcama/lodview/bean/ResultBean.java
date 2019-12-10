@@ -126,9 +126,10 @@ public class ResultBean {
 			return null;
 		}
 		for (PropertyBean key : literals.keySet()) {
-			for (TripleBean tripleBean : literals.get(key)) {
-
-				this.wkt = tripleBean.getValue().toString();
+			if (key.getPropertyUrl().contains("asWKT")) {
+				for (TripleBean tripleBean : literals.get(key)) {
+					this.wkt = tripleBean.getValue().toString();
+				}
 			}
 		}
 		return wkt;
