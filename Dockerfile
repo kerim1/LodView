@@ -1,8 +1,14 @@
-FROM tomcat
-MAINTAINER adrian.gschwend@zazuko.com
+FROM maven:3.5-jdk-8 AS build  
+COPY . /LodView
+WORKDIR /LodView
+RUN mvn compile war:war
+RUN mvn -f pom.xml clean package
 
-RUN cd /usr/local/tomcat/webapps/ && \
-    curl -Ls $(curl -s https://api.github.com/repos/zazukoians/LodView/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4) > lodview.war
+FROM tomcat
+LABEL MAINTAINER leon@vwissen.nl
+
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+COPY --from=build LodView/target/lodview.war /usr/local/tomcat/webapps/ROOT.war
+#COPY --from=build LodView/target/lodview /usr/local/tomcat/webapps/ROOT
 
 CMD ["catalina.sh", "run"]
-EXPOSE 8080 8009
