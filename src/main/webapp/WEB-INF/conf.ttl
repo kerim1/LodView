@@ -222,8 +222,8 @@
 	conf:imageProperties		foaf:depiction , <http://erlangen-crm.org/120111/P138i_has_representation> , crm-owl:P138i_has_representation ,
 								<http://www.researchspace.org/ontology/FR138i_representation>;
 								
-	conf:longitudeProperties	geo:long;
-	conf:latitudeProperties		geo:lat;
+	conf:longitudeProperties	geo:long, <https://schema.org/longitude>, <http://schema.org/longitude>;
+	conf:latitudeProperties		geo:lat, <https://schema.org/latitude>, <http://schema.org/latitude>;
 	conf:geometryProperties		geos:hasGeometry;
 	conf:linkingProperties		owl:sameAs , skos:exactMatch , gn:locatedIn ,  <http://www.bbc.co.uk/ontologies/coreconcepts/sameAs>, <https://schema.org/sameAs>, <http://schema.org/sameAs>, <https://schema.org/geoWithin>, <http://schema.org/geoWithin>, <http://rdf.histograph.io/liesIn>;
 
@@ -249,7 +249,7 @@
 	
 ## license information (will be added at the very end of the page)
 
-	conf:license	"Licensed under <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International</a> (CC BY 4.0)" ;	
+	conf:license	"Licensed under <a href='https://creativecommons.org/licenses/by-sa/4.0'>Creative Commons Attribution 4.0 International</a> (CC BY-SA 4.0)" ;	
 					
 ##	just a marker to insert a point on the last row
 	
