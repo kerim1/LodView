@@ -190,7 +190,7 @@ public class ResourceBuilder {
 
 		StringBuilder filter = new StringBuilder();
 		for (String titleProperty : filterProperties) {
-			if (titleProperty.toLowerCase().startsWith("http:")) {
+			if (titleProperty.toLowerCase().startsWith("http")) {
 				filter.append("(?filterProperty = <" + titleProperty + ">)");
 			} else {
 				filter.append("(?filterProperty = " + titleProperty + ")");

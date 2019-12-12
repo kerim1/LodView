@@ -166,7 +166,7 @@
 ##	default query used to extract inverse relations
 
 	conf:defaultInversesQueries "select distinct ?p {?p <${PROPERTY}> <${IRI}>.}  OFFSET ${STARTFROM} LIMIT 10"; 
-	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
+	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(!isBlank(?s) || (isIRI(?s) && !contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
 	conf:defaultInversesTest "ASK {?s ?p <${IRI}>}";
 
 ##  define if inverse relations have to be automatically opened (open|close)
@@ -212,7 +212,7 @@
 
 	conf:typeProperties			rdf:type;
 	
-	conf:titleProperties		dc:title , dcterms:title, rdfs:label, schema:name , <http://www.w3.org/2004/02/skos/core#prefLabel> , 
+	conf:titleProperties		dc:title , dcterms:title, rdfs:label, <https://schema.org/name>, <http://schema.org/name>, <http://www.w3.org/2004/02/skos/core#prefLabel> , 
 								<http://www.w3.org/2008/05/skos-xl#prefLabel> , <http://www.w3.org/2009/08/skos-reference/skos.html#prefLabel> , 
 								gn:officialName , gn:name , rdf:value , foaf:surname , <http://purl.org/collections/nl/am/title> , <http://xmlns.com/foaf/0.1/name>;  
 								
@@ -225,7 +225,7 @@
 	conf:longitudeProperties	geo:long;
 	conf:latitudeProperties		geo:lat;
 	conf:geometryProperties		geos:hasGeometry;
-	conf:linkingProperties		owl:sameAs , skos:exactMatch , gn:locatedIn ,  <http://www.bbc.co.uk/ontologies/coreconcepts/sameAs>;
+	conf:linkingProperties		owl:sameAs , skos:exactMatch , gn:locatedIn ,  <http://www.bbc.co.uk/ontologies/coreconcepts/sameAs>, <https://schema.org/sameAs>, <http://schema.org/sameAs>, <https://schema.org/geoWithin>, <http://schema.org/geoWithin>, <http://rdf.histograph.io/liesIn>;
 
 	conf:videoProperties		<http://schema.org/VideoObject>;
 	conf:audioProperties		<http://schema.org/AudioObject>;
@@ -249,7 +249,7 @@
 	
 ## license information (will be added at the very end of the page)
 
-	conf:license	"" ; ## eg. "Licensed under <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International</a> (CC BY 4.0)" ;	
+	conf:license	"Licensed under <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International</a> (CC BY 4.0)" ;	
 					
 ##	just a marker to insert a point on the last row
 	
