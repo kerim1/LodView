@@ -22,7 +22,7 @@
 @prefix metalex: <http://www.metalex.eu/metalex/2008-05-02#> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix gn: <http://www.geonames.org/ontology#> .
-@prefix schema-org: <http://schema.org/> .
+@prefix schema: <https://schema.org/> .
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix ibc: <http://dati.ibc.it/ibc/> .
 @prefix bio: <http://purl.org/vocab/bio/0.1/> .
@@ -54,7 +54,9 @@
 @prefix crm120111: <http://erlangen-crm.org/120111/> .
 @prefix rel: <http://purl.org/vocab/relationship/> .
 @prefix sem: <http://semanticweb.cs.vu.nl/2009/11/sem/> .
-
+@prefix roar: <https://w3id.org/roar#> .
+@prefix pnv: <https://w3id.org/pnv#> .
+@prefix void: <http://rdfs.org/ns/void#> .
 
 <> a conf:Configuration;
 
@@ -63,12 +65,12 @@
 ##	installation on dbpedia domain should use <http://dbpedia.org/resource/> 
 	
 	#conf:IRInamespace <http://dbpedia.org/resource/>  ;
-	conf:IRInamespace <https://adamlink.nl/geo/> ;
+	conf:IRInamespace <https://data.create.humanities.uva.nl/> ;
 
 ## 	EndPoint
 
 	#conf:endpoint <http://dbpedia.org/sparql>;
-	conf:endpoint <http://stardog:5820/Adamlink/query>;
+	conf:endpoint <http://stardog:5820/BR/query>;
 	conf:endpointType "virtuoso"; 	## 	just "virtuoso" is handled right now, this will add some "rawdata" 
 									##	options in the footer, leave this blank if you don't want these links
 
@@ -164,11 +166,11 @@
 ##	default query used to extract inverse relations
 
 	conf:defaultInversesQueries "select distinct ?p {?p <${PROPERTY}> <${IRI}>.}  OFFSET ${STARTFROM} LIMIT 10"; 
-	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),''.well-known')))} GROUP BY ?p LIMIT 100";
+	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
 	conf:defaultInversesTest "ASK {?s ?p <${IRI}>}";
 
 ##  define if inverse relations have to be automatically opened (open|close)
-	conf:defaultInverseBehaviour "close"; 
+	conf:defaultInverseBehaviour "open"; 
 
 ########################################################################################
 ########################		configuring the webapp			########################
@@ -187,7 +189,7 @@
 
 ##	home link (accessible from the banner)
 
-	conf:homeUrl </>;
+	conf:homeUrl <https://data.create.humanities.uva.nl/>;
 
   	
 ##	static resources publishing point, "staticResources/" is needed if you are going 
@@ -210,12 +212,12 @@
 
 	conf:typeProperties			rdf:type;
 	
-	conf:titleProperties		dc:title , dcterms:title, rdfs:label , <http://www.w3.org/2004/02/skos/core#prefLabel> , 
+	conf:titleProperties		dc:title , dcterms:title, rdfs:label, schema:name , <http://www.w3.org/2004/02/skos/core#prefLabel> , 
 								<http://www.w3.org/2008/05/skos-xl#prefLabel> , <http://www.w3.org/2009/08/skos-reference/skos.html#prefLabel> , 
 								gn:officialName , gn:name , rdf:value , foaf:surname , <http://purl.org/collections/nl/am/title> , <http://xmlns.com/foaf/0.1/name>;  
 								
 	conf:descriptionProperties	rdfs:comment , dc:description , dcterms:description , 
-								dc:description , skos:definition ,  <http://dbpedia.org/ontology/abstract>;
+								dc:description , skos:definition , <http://dbpedia.org/ontology/abstract>, schema:description;
 								
 	conf:imageProperties		foaf:depiction , <http://erlangen-crm.org/120111/P138i_has_representation> , crm-owl:P138i_has_representation ,
 								<http://www.researchspace.org/ontology/FR138i_representation>;
