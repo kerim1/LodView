@@ -160,7 +160,7 @@
 ##	default query used to extract inverse relations
 
 	conf:defaultInversesQueries "select distinct ?p {?p <${PROPERTY}> <${IRI}>.}  OFFSET ${STARTFROM} LIMIT 10"; 
-	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
+	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(!isBlank(?s) || (isIRI(?s) && !contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
 	conf:defaultInversesTest "ASK {?s ?p <${IRI}>}";
 
 ##  define if inverse relations have to be automatically opened (open|close)
