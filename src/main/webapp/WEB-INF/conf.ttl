@@ -22,7 +22,7 @@
 @prefix metalex: <http://www.metalex.eu/metalex/2008-05-02#> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix gn: <http://www.geonames.org/ontology#> .
-@prefix schema: <https://schema.org/> .
+@prefix schema: <http://schema.org/> .
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix ibc: <http://dati.ibc.it/ibc/> .
 @prefix bio: <http://purl.org/vocab/bio/0.1/> .
@@ -70,7 +70,7 @@
 ## 	EndPoint
 
 	#conf:endpoint <http://dbpedia.org/sparql>;
-	conf:endpoint <http://stardog:5820/BR/query>;
+	conf:endpoint <https://data.create.humanities.uva.nl/sparql>;
 	conf:endpointType "virtuoso"; 	## 	just "virtuoso" is handled right now, this will add some "rawdata" 
 									##	options in the footer, leave this blank if you don't want these links
 
@@ -81,10 +81,10 @@
 ##	to the HTML representation of the resources, live it blank if you want to 
 ##  use the "pure content negotiation mode", WARNING use suffix OR prefix, not both
 	
-	#conf:httpRedirectSuffix ".html"; ## or eg. ".html";
-	conf:httpRedirectPrefix ""; ## or eg. "";
+	#conf:httpRedirectSuffix ".html" ; ## or eg. ".html";
+	conf:httpRedirectPrefix "" ; ## or eg. "";
 
-	conf:httpRedirectExcludeList ""; 	## a comma separeted list of regex to match which resources will use "pure content negotiation mode"
+	conf:httpRedirectExcludeList ".+/ontology/.+"; 	## a comma separeted list of regex to match which resources will use "pure content negotiation mode"
 										## usually you have to leave this blank but if conf:redirectionStrategy is setted to "pubby" this could be
 										## useful (eg. dbpedia uses /resource --> /page but leaves /ontology --> /ontology)
 
@@ -180,7 +180,8 @@
 ##	if you are using a proxy, set it at <auto> for testing, an installation on dbpedia
 ##	domain should use <http://dbpedia.org/resource/>
 
-	conf:publicUrlPrefix <auto>; ## or <auto>
+	#conf:publicUrlPrefix <auto>; ## or <auto>
+	conf:publicUrlPrefix <https://data.create.humanities.uva.nl/> ;
 
 
 ## solve IRI issues in particular environments (proxypass, etc.)
@@ -198,7 +199,7 @@
 ##	"http://data.yourdomain.com/staticResources/", on a test environment you can set it
 ##	at <auto>
  	
-	conf:staticResourceURL <auto>;
+	conf:staticResourceURL <https://data.create.humanities.uva.nl/staticResources/>;
 	
 ##  choosing the lower class in hierarchy to put it on the top right of the page
 ##	put in mainOntologies the prefixes you need to filter the resource's classes
@@ -217,9 +218,9 @@
 								gn:officialName , gn:name , rdf:value , foaf:surname , <http://purl.org/collections/nl/am/title> , <http://xmlns.com/foaf/0.1/name>;  
 								
 	conf:descriptionProperties	rdfs:comment , dc:description , dcterms:description , 
-								dc:description , skos:definition , <http://dbpedia.org/ontology/abstract>, schema:description;
+								dc:description , skos:definition , <http://dbpedia.org/ontology/abstract>, schema:description, <https://schema.org/description>, schema:disambiguatingDescription , <https://schema.org/disambiguatingDescription>;
 								
-	conf:imageProperties		foaf:depiction , <http://erlangen-crm.org/120111/P138i_has_representation> , crm-owl:P138i_has_representation ,
+	conf:imageProperties		foaf:depiction , schema:image , <https://schema.org/image> , <http://erlangen-crm.org/120111/P138i_has_representation> , crm-owl:P138i_has_representation ,
 								<http://www.researchspace.org/ontology/FR138i_representation>;
 								
 	conf:longitudeProperties	geo:long, <https://schema.org/longitude>, <http://schema.org/longitude>;
@@ -237,10 +238,7 @@
 
 ## interface colors, choose a pair or a list for random colors
 
-	conf:colorPair 	"#c3a116-#ac8c13" , "#914848-#7d3e3e" , "#8a4e6a-#77435c" , "#ac8cb0-#967999" ,
-					"#715287-#624775" , "#606592-#53577e" , "#7eb9be-#6da2a7" , "#5b8a97-#4f7783" , 
-					"#86b692-#749f7e" , "#528775-#477565" , "#6d8058-#5e6f4c" , "#a1a72e-#8c9128" ,
-					"#c77e20-#ad6e1c" ;
+	conf:colorPair 	"#BC0031-#646464" ;
 	
 #### or bind classes and colors
 ## 	
@@ -249,7 +247,7 @@
 	
 ## license information (will be added at the very end of the page)
 
-	conf:license	"Licensed under <a href='https://creativecommons.org/licenses/by-sa/4.0'>Creative Commons Attribution 4.0 International</a> (CC BY-SA 4.0)" ;	
+	conf:license	"Licensed under <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Attribution 4.0 International</a> (CC BY-NC-SA 4.0)" ;	
 					
 ##	just a marker to insert a point on the last row
 	

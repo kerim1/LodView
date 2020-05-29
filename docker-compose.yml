@@ -1,0 +1,42 @@
+version: "3"
+services:
+  lodview:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - traefik
+    labels:
+      - "traefik.frontend.rule=Host:lodview.localhost"
+      - "traefik.port=8080"
+      - "traefik.backend=lodview"
+      - "traefik.frontend.entryPoints=http"
+      
+networks:
+  traefik:
+    external:
+      name: traefik
+
+
+# version: "3.3"
+
+# services:
+
+#   lodview:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: "lodview"
+#     ports:
+#       - "80:8080"
+#     restart: always
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.lodview.rule=(Host(`data.create.humanities.uva.nl`))"
+#       - "traefik.http.routers.lodview.entrypoints=websecure"
+#       - "traefik.http.routers.lodview.middlewares=lodviewredirect,lodviewforward"
+#       - "traefik.http.middlewares.lodviewredirect.redirectregex.regex=^https://data.create.humanities.uva.nl/id/(.*)"
+#       - "traefik.http.middlewares.lodviewredirect.redirectregex.replacement=https://data.create.humanities.uva.nl/page/$${1}"
+#       - "traefik.http.middlewares.lodviewforward.replacepathregex.regex=^/page/(.*)"
+#       - "traefik.http.middlewares.lodviewforward.replacepathregex.replacement=/id/$${1}"
+#       - "traefik.http.routers.lodview.tls.certresolver=myresolver"
