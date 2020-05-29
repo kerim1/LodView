@@ -180,8 +180,7 @@
 ##	if you are using a proxy, set it at <auto> for testing, an installation on dbpedia
 ##	domain should use <http://dbpedia.org/resource/>
 
-	#conf:publicUrlPrefix <auto>; ## or <auto>
-	conf:publicUrlPrefix <https://data.create.humanities.uva.nl/> ;
+	conf:publicUrlPrefix <auto>; ## or <auto>	
 
 
 ## solve IRI issues in particular environments (proxypass, etc.)
@@ -199,7 +198,7 @@
 ##	"http://data.yourdomain.com/staticResources/", on a test environment you can set it
 ##	at <auto>
  	
-	conf:staticResourceURL <https://data.create.humanities.uva.nl/staticResources/>;
+	conf:staticResourceURL <auto>;
 	
 ##  choosing the lower class in hierarchy to put it on the top right of the page
 ##	put in mainOntologies the prefixes you need to filter the resource's classes
