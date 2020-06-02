@@ -65,12 +65,12 @@
 ##	installation on dbpedia domain should use <http://dbpedia.org/resource/> 
 	
 	#conf:IRInamespace <http://dbpedia.org/resource/>  ;
-	conf:IRInamespace <https://data.create.humanities.uva.nl/> ;
+	conf:IRInamespace <https://data.goldenagents.org/> ;
 
 ## 	EndPoint
 
 	#conf:endpoint <http://dbpedia.org/sparql>;
-	conf:endpoint <https://data.create.humanities.uva.nl/sparql>;
+	conf:endpoint <https://sparql.diginfra.net/sparql>;
 	conf:endpointType "virtuoso"; 	## 	just "virtuoso" is handled right now, this will add some "rawdata" 
 									##	options in the footer, leave this blank if you don't want these links
 
@@ -111,21 +111,21 @@
     <${IRI}> ?p ?o
   } UNION {
     <${IRI}> ?p1 ?s . 
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     ?s ?p ?o .
   } UNION {
     <${IRI}> ?p1 ?s1 .  
-    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'.well-known'))) . 
+    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'BlankNode'))) . 
     ?s1 ?p2 ?s . 
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     ?s ?p ?o .
   } UNION {
     <${IRI}> ?p1 ?s1 .  
-    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'.well-known'))) . 
+    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'BlankNode'))) . 
     ?s1 ?p2 ?s2 . 
-    FILTER(isBlank(?s2) || (isIRI(?s2) && contains(str(?s2),'.well-known'))) . 
+    FILTER(isBlank(?s2) || (isIRI(?s2) && contains(str(?s2),'BlankNode'))) . 
     ?s2 ?p3 ?s . 
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     ?s ?p ?o
   }	
 		} LIMIT 10000""" ;
@@ -142,22 +142,22 @@
   } UNION {
     <${IRI}> ?p1 ?s . 
     
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     
     ?s ?p ?o .
   } UNION {
     <${IRI}> ?p1 ?s1 .  
-    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'.well-known'))) . 
+    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'BlankNode'))) . 
     ?s1 ?p2 ?s . 
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     ?s ?p ?o .
   } UNION {
     <${IRI}> ?p1 ?s1 .  
-    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'.well-known'))) . 
+    FILTER(isBlank(?s1) || (isIRI(?s1) && contains(str(?s1),'BlankNode'))) . 
     ?s1 ?p2 ?s2 . 
-    FILTER(isBlank(?s2) || (isIRI(?s2) && contains(str(?s2),'.well-known'))) . 
+    FILTER(isBlank(?s2) || (isIRI(?s2) && contains(str(?s2),'BlankNode'))) . 
     ?s2 ?p3 ?s . 
-    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'.well-known'))) . 
+    FILTER(isBlank(?s) || (isIRI(?s) && contains(str(?s),'BlankNode'))) . 
     ?s ?p ?o
   }	
 		} LIMIT 10000""" ;
@@ -166,7 +166,7 @@
 ##	default query used to extract inverse relations
 
 	conf:defaultInversesQueries "select distinct ?p {?p <${PROPERTY}> <${IRI}>.}  OFFSET ${STARTFROM} LIMIT 10"; 
-	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(!isBlank(?s) || (isIRI(?s) && !contains(str(?s),'.well-known')))} GROUP BY ?p LIMIT 100";
+	conf:defaultInversesCountQueries "select (count(distinct ?s) AS ?o) ?p {?s ?p <${IRI}>. FILTER(!isBlank(?s) || (isIRI(?s) && !contains(str(?s),'BlankNode')))} GROUP BY ?p LIMIT 100";
 	conf:defaultInversesTest "ASK {?s ?p <${IRI}>}";
 
 ##  define if inverse relations have to be automatically opened (open|close)

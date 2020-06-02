@@ -107,7 +107,7 @@ public class SPARQLEndPoint {
 					rb.setProperty(p);
 					if (qs.get("o") != null) {
 						Node object = qs.get("o").asNode();
-						if (object.isBlank() || object.toString().contains(".well-known")) {
+						if (object.isBlank() || object.toString().contains("BlankNode")) {
 							rb.setType("bnode");
 							rb.setValue(object.toString(false));
 						} else if (object.isURI()) {
@@ -194,7 +194,7 @@ public class SPARQLEndPoint {
 						rb.setProperty(p);
 						if (qs.get("o") != null) {
 							Node object = qs.get("o").asNode();
-							if (object.isBlank() || object.toString().contains(".well-known")) {
+							if (object.isBlank() || object.toString().contains("BlankNode")) {
 								rb.setType("bnode");
 								rb.setValue(object.toString(false));
 							} else if (object.isURI()) {

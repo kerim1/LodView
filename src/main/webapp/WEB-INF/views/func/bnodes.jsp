@@ -8,7 +8,7 @@
 		<c:forEach items='${data.get(aprop)}' var="ela">
 			<div class="toOneLine">
 				<c:choose>
-					<c:when test='${ela.getValue().contains(".well-known")}'><a href="#${ela.getValue()}" id="t_${ela.getValue()}"> ${ela.getValue()}</a></c:when>
+					<c:when test='${ela.getValue().contains("BlankNode")}'><a href="#${ela.getValue()}" id="t_${ela.getValue()}"> ${ela.getValue()}</a></c:when>
 					<c:otherwise><a href="#${ela.getValue()}" id="t_${ela.getValue()}"> _:${ela.getValue()}</a></c:otherwise>
 				</c:choose>
 				

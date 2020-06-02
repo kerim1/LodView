@@ -95,7 +95,7 @@
 							<c:forEach items='${results.getBnodes(results.getMainIRI()).get(prop)}' var="iel">
 								<div class="toOneLine">
 									<c:choose>
-										<c:when test='${iel.getValue().contains(".well-known")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
+										<c:when test='${iel.getValue().contains("BlankNode")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
 										<c:otherwise><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> _:${iel.getValue()}</a></c:otherwise>
 									</c:choose>
 								</div>
@@ -123,7 +123,7 @@
 									<c:forEach items='${results.getBnodes(acontentIRI).get(prop)}' var="iel">
 										<div class="toOneLine">
 											<c:choose>
-												<c:when test='${iel.getValue().contains(".well-known")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
+												<c:when test='${iel.getValue().contains("BlankNode")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
 												<c:otherwise><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> _:${iel.getValue()}</a></c:otherwise>
 											</c:choose>
 										</div>
@@ -155,7 +155,7 @@
 											<c:forEach items='${results.getBnodes(acontentIRI).get(prop)}' var="iel">
 												<div class="toOneLine">
 													<c:choose>
-														<c:when test='${iel.getValue().contains(".well-known")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
+														<c:when test='${iel.getValue().contains("BlankNode")}'><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> ${iel.getValue()}</a></c:when>
 														<c:otherwise><a href="#t_${iel.getValue()}" id="${iel.getValue()}"> _:${iel.getValue()}</a></c:otherwise>
 													</c:choose>
 												</div>
